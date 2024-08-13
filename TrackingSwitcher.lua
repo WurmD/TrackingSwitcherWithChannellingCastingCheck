@@ -83,7 +83,6 @@ local defaults = {
     }
 }
 
-
 function TrackingSwitcher:OnInitialize()
     print('Thank you for using TrackingSwitcher, write /ts to enable. To change tracking types use /ts opt')
 
@@ -102,6 +101,7 @@ function TrackingSwitcher:OnInitialize()
 end
 
 function TrackingSwitcher:ChatCommand(input)
+    --     print('ChatCommand(' .. input);
     if not input or input:trim() == "" then
         TrackingSwitcher:ToggleTracking();
     else
@@ -199,7 +199,9 @@ function TrackingSwitcher:TimerFeedback()
     spell_channeling_name, text, texture, startTimeMS, endTimeMS, isTradeSkill, notInterruptible, spellId = UnitChannelInfo("player")
     spell_casting_name, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, interrupt = UnitCastingInfo("player")
     if spell_channeling_name ~= nil or spell_casting_name ~= nil then
-        TrackingSwitcher.lastCastEndTime = currentTime + 2 -- Store the end time plus 2 seconds delay
+        --         print("spell_channeling_name ~= nil or spell_casting_name ~= nil")
+        TrackingSwitcher.lastCastEndTime = currentTime + 4 -- Store the end time plus 2 seconds delay
+    end
 
     if UnitAffectingCombat("player") == false and spell_channeling_name == nil and spell_casting_name == nil and currentTime >= TrackingSwitcher.lastCastEndTime then
         if currentTrackingIcon ~= trackingIDs[TrackingSwitcher:GetType1()].id then
