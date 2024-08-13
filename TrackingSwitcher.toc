@@ -1,0 +1,12 @@
+## Interface: 11302
+
+## Title: TrackingSwitcherWithChannellingCastingCheck
+## Version: 1.1.4
+## Author: WurmD based on Epenance
+## Notes: Helper addon to swap between trackings when out of combat or casting.
+## SavedVariables: TrackingSwitcherDB
+## SavedVariablesPerCharacter: TrackingSwitcherCharDB
+
+embeds.xml
+
+TrackingSwitcher.lua
