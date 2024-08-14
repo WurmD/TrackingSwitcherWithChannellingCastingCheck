@@ -1,4 +1,4 @@
-TrackingSwitcher = LibStub("AceAddon-3.0"):NewAddon("TrackingSwitcherWithChannellingCastingCheck", "AceTimer-3.0", "AceConsole-3.0")
+TrackingSwitcher = LibStub("AceAddon-3.0"):NewAddon("TrackingSwitcher", "AceTimer-3.0", "AceConsole-3.0")
 TrackingSwitcher.lastCastEndTime = 0 -- Initialize a variable to store the last cast end time
 
 local trackingValues = {
