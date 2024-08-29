@@ -101,7 +101,7 @@ function TrackingSwitcher:OnInitialize()
 end
 
 function TrackingSwitcher:ChatCommand(input)
-    --     print('ChatCommand(' .. input);
+    --print('ChatCommand(' .. tostring(input) .. ')');
     if not input or input:trim() == "" then
         TrackingSwitcher:ToggleTracking();
     else
@@ -198,12 +198,15 @@ function TrackingSwitcher:TimerFeedback()
 
     spell_channeling_name, text, texture, startTimeMS, endTimeMS, isTradeSkill, notInterruptible, spellId = UnitChannelInfo("player")
     spell_casting_name, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, interrupt = UnitCastingInfo("player")
-    if spell_channeling_name ~= nil or spell_casting_name ~= nil then
-        --         print("spell_channeling_name ~= nil or spell_casting_name ~= nil")
-        TrackingSwitcher.lastCastEndTime = currentTime + 4 -- Store the end time plus 2 seconds delay
+    should_not_switch = spell_channeling_name ~= nil or spell_casting_name ~= nil or IsFalling() or UnitAffectingCombat("player")
+    --print("spell_channeling_name " .. tostring(spell_channeling_name) .. ", spell_casting_name "
+    --    .. tostring(spell_casting_name) .. ", IsFalling " .. tostring(IsFalling()) .. ", UnitAffectingCombat "
+    --    .. tostring(UnitAffectingCombat("player")) .. ": should_not_switch " .. tostring(should_not_switch))
+    if should_not_switch then
+        TrackingSwitcher.lastCastEndTime = currentTime + 5 -- Store the end time plus 5 seconds delay
     end
 
-    if UnitAffectingCombat("player") == false and spell_channeling_name == nil and spell_casting_name == nil and currentTime >= TrackingSwitcher.lastCastEndTime then
+    if not should_not_switch and currentTime >= TrackingSwitcher.lastCastEndTime then
         if currentTrackingIcon ~= trackingIDs[TrackingSwitcher:GetType1()].id then
             CastSpellByName(trackingIDs[TrackingSwitcher:GetType1()].spellName);
         else
